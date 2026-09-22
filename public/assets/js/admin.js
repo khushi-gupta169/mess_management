@@ -9,19 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Initialize DataTables
-    if ($.fn.DataTable) {
-        $('.table').DataTable({
-            responsive: true,
-            language: {
-                search: "_INPUT_",
-                searchPlaceholder: "Search records...",
-            },
-            dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>' +
-                 '<"row"<"col-sm-12"tr>>' +
-                 '<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
-        });
-    }
+    // DataTables are initialized per-page in each view for custom settings
+    // No global initialization here to avoid "Cannot reinitialise" errors
 
     // Initialize charts
     if (typeof Chart !== 'undefined') {
