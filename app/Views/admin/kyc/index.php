@@ -12,20 +12,9 @@
             <p class="text-muted mb-0">Review and verify student KYC documents</p>
         </div>
         <div class="col-md-6 text-md-end">
-            <div class="btn-group" role="group">
-                <button type="button" class="btn btn-outline-primary" onclick="filterDocuments('all')">
-                    <i class="fas fa-list me-1"></i>All
-                </button>
-                <button type="button" class="btn btn-outline-warning" onclick="filterDocuments('pending')">
-                    <i class="fas fa-clock me-1"></i>Pending
-                </button>
-                <button type="button" class="btn btn-outline-success" onclick="filterDocuments('approved')">
-                    <i class="fas fa-check me-1"></i>Approved
-                </button>
-                <button type="button" class="btn btn-outline-danger" onclick="filterDocuments('rejected')">
-                    <i class="fas fa-times me-1"></i>Rejected
-                </button>
-            </div>
+            <span class="badge bg-primary-subtle text-primary fs-6">
+                <i class="fas fa-id-card me-1"></i><?= count($documents) ?> Documents
+            </span>
         </div>
     </div>
 </div>
@@ -53,14 +42,6 @@
                 <h5 class="mb-0">
                     <i class="fas fa-folder-open me-2 text-primary"></i>All Documents
                 </h5>
-            </div>
-            <div class="col-md-6">
-                <div class="input-group">
-                    <span class="input-group-text bg-light border-end-0">
-                        <i class="fas fa-search text-muted"></i>
-                    </span>
-                    <input type="text" id="searchInput" class="form-control border-start-0" placeholder="Search documents...">
-                </div>
             </div>
         </div>
     </div>
@@ -215,25 +196,21 @@ function showRejectModal(id, studentName) {
     rejectModal.show();
 }
 
-function filterDocuments(status) {
-    let tableRows = document.querySelectorAll('#kycTable tbody tr');
-    
-    tableRows.forEach(function(row) {
-        if (status === 'all' || row.dataset.status === status) {
-            row.style.display = '';
-        } else {
-            row.style.display = 'none';
-        }
-    });
-}
-
-document.getElementById('searchInput').addEventListener('keyup', function() {
-    let searchValue = this.value.toLowerCase();
-    let tableRows = document.querySelectorAll('#kycTable tbody tr');
-    
-    tableRows.forEach(function(row) {
-        let text = row.textContent.toLowerCase();
-        row.style.display = text.includes(searchValue) ? '' : 'none';
+document.addEventListener('DOMContentLoaded', function() {
+    var kycTable = $('#kycTable').DataTable({
+        pageLength: 10,
+        lengthMenu: [5, 10, 25, 50, 100],
+        order: [[0, 'asc']],
+        language: {
+            search: '<i class="fas fa-search me-1"></i>',
+            searchPlaceholder: 'Search documents...',
+            lengthMenu: 'Show _MENU_ entries',
+            info: 'Showing _START_ to _END_ of _TOTAL_ documents',
+            emptyTable: 'No KYC documents found',
+            paginate: { first: '<i class="fas fa-angle-double-left"></i>', last: '<i class="fas fa-angle-double-right"></i>', next: '<i class="fas fa-angle-right"></i>', previous: '<i class="fas fa-angle-left"></i>' }
+        },
+        dom: '<"row mb-3"<"col-md-6"l><"col-md-6"f>>rtip',
+        columnDefs: [{ targets: [6], orderable: false }]
     });
 });
 </script>

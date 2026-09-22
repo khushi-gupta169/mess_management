@@ -32,10 +32,24 @@
 <?php endif; ?>
 
 <div class="card border-0 shadow-sm">
+    <div class="card-header bg-white border-0 py-3">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h5 class="mb-0">
+                    <i class="fas fa-calendar-alt me-2 text-primary"></i>All Holidays
+                </h5>
+            </div>
+            <div class="col-md-6 text-end">
+                <span class="badge bg-primary-subtle text-primary fs-6">
+                    <i class="fas fa-calendar me-1"></i><?= count($holidays) ?> Total
+                </span>
+            </div>
+        </div>
+    </div>
     <div class="card-body">
         <?php if (!empty($holidays)): ?>
             <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
+                <table class="table table-hover align-middle mb-0" id="holidaysTable">
                     <thead class="table-light">
                         <tr>
                             <th>#</th>
@@ -121,6 +135,23 @@ function confirmDelete(id, title) {
     document.getElementById('deleteConfirmBtn').href = '<?= base_url('admin/holidays/delete/') ?>' + id;
     new bootstrap.Modal(document.getElementById('deleteModal')).show();
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    $('#holidaysTable').DataTable({
+        pageLength: 10,
+        lengthMenu: [5, 10, 25, 50, 100],
+        order: [[1, 'desc']],
+        language: {
+            search: '<i class="fas fa-search me-1"></i>',
+            searchPlaceholder: 'Search holidays...',
+            lengthMenu: 'Show _MENU_ entries',
+            info: 'Showing _START_ to _END_ of _TOTAL_ holidays',
+            emptyTable: 'No holidays found',
+            paginate: { first: '<i class="fas fa-angle-double-left"></i>', last: '<i class="fas fa-angle-double-right"></i>', next: '<i class="fas fa-angle-right"></i>', previous: '<i class="fas fa-angle-left"></i>' }
+        },
+        dom: '<"row mb-3"<"col-md-6"l><"col-md-6"f>>rtip'
+    });
+});
 </script>
 
 <?= $this->endSection() ?>

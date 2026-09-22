@@ -31,11 +31,10 @@
             <div class="col-md-6">
                 <h5 class="mb-0"><i class="fas fa-list me-2 text-primary"></i>All Requests</h5>
             </div>
-            <div class="col-md-6">
-                <div class="input-group">
-                    <span class="input-group-text bg-light border-end-0"><i class="fas fa-search text-muted"></i></span>
-                    <input type="text" id="searchInput" class="form-control border-start-0" placeholder="Search requests...">
-                </div>
+            <div class="col-md-6 text-end">
+                <span class="badge bg-primary-subtle text-primary fs-6">
+                    <i class="fas fa-hamburger me-1"></i><?= count($extraMeals) ?> Total
+                </span>
             </div>
         </div>
     </div>
@@ -158,10 +157,20 @@ function confirmReject(id, name) {
     new bootstrap.Modal(document.getElementById('rejectModal')).show();
 }
 
-document.getElementById('searchInput').addEventListener('keyup', function() {
-    var val = this.value.toLowerCase();
-    document.querySelectorAll('#extraMealsTable tbody tr').forEach(function(row) {
-        row.style.display = row.textContent.toLowerCase().includes(val) ? '' : 'none';
+document.addEventListener('DOMContentLoaded', function() {
+    $('#extraMealsTable').DataTable({
+        pageLength: 10,
+        lengthMenu: [5, 10, 25, 50, 100],
+        order: [[0, 'asc']],
+        language: {
+            search: '<i class="fas fa-search me-1"></i>',
+            searchPlaceholder: 'Search requests...',
+            lengthMenu: 'Show _MENU_ entries',
+            info: 'Showing _START_ to _END_ of _TOTAL_ requests',
+            emptyTable: 'No extra meal requests found',
+            paginate: { first: '<i class="fas fa-angle-double-left"></i>', last: '<i class="fas fa-angle-double-right"></i>', next: '<i class="fas fa-angle-right"></i>', previous: '<i class="fas fa-angle-left"></i>' }
+        },
+        dom: '<"row mb-3"<"col-md-6"l><"col-md-6"f>>rtip'
     });
 });
 </script>

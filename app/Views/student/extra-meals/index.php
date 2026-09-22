@@ -45,7 +45,7 @@
             <div class="card-body">
                 <?php if (!empty($extraMeals)): ?>
                 <div class="table-responsive">
-                    <table class="table table-hover align-middle">
+                    <table class="table table-hover align-middle" id="studentExtraMealsTable">
                         <thead class="table-light"><tr><th>Date</th><th>Meal</th><th>Qty</th><th>Price</th><th>Status</th><th>Reason</th></tr></thead>
                         <tbody>
                         <?php foreach ($extraMeals as $meal): ?>
@@ -72,4 +72,22 @@
         </div>
     </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    $('#studentExtraMealsTable').DataTable({
+        pageLength: 10,
+        lengthMenu: [5, 10, 25],
+        order: [[0, 'desc']],
+        language: {
+            search: '<i class="fas fa-search me-1"></i>',
+            searchPlaceholder: 'Search requests...',
+            lengthMenu: 'Show _MENU_',
+            info: 'Showing _START_ to _END_ of _TOTAL_',
+            emptyTable: 'No requests yet',
+            paginate: { first: '<i class="fas fa-angle-double-left"></i>', last: '<i class="fas fa-angle-double-right"></i>', next: '<i class="fas fa-angle-right"></i>', previous: '<i class="fas fa-angle-left"></i>' }
+        },
+        dom: '<"row mb-3"<"col-md-6"l><"col-md-6"f>>rtip'
+    });
+});
+</script>
 <?= $this->endSection() ?>

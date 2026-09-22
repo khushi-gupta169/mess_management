@@ -19,7 +19,7 @@
     <div class="card-body">
         <?php if (!empty($feeRecords)): ?>
         <div class="table-responsive">
-            <table class="table table-hover align-middle">
+            <table class="table table-hover align-middle" id="studentFeeTable">
                 <thead class="table-light"><tr><th>Month/Year</th><th>Base</th><th>Extra Meal</th><th>Other</th><th>Total</th><th>Paid</th><th>Pending</th><th>Status</th></tr></thead>
                 <tbody>
                 <?php $mn = ['','January','February','March','April','May','June','July','August','September','October','November','December']; ?>
@@ -52,7 +52,7 @@
     <div class="card-body">
         <?php if (!empty($payments)): ?>
         <div class="table-responsive">
-            <table class="table table-hover align-middle">
+            <table class="table table-hover align-middle" id="studentPaymentsTable">
                 <thead class="table-light"><tr><th>Date</th><th>Receipt No.</th><th>Amount</th><th>Method</th><th>Status</th></tr></thead>
                 <tbody>
                 <?php foreach ($payments as $pmt): ?>
@@ -81,4 +81,37 @@
         <?php endif; ?>
     </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    $('#studentFeeTable').DataTable({
+        pageLength: 10,
+        lengthMenu: [5, 10, 25],
+        order: [[0, 'desc']],
+        language: {
+            search: '<i class="fas fa-search me-1"></i>',
+            searchPlaceholder: 'Search fees...',
+            lengthMenu: 'Show _MENU_',
+            info: 'Showing _START_ to _END_ of _TOTAL_',
+            emptyTable: 'No fee records found',
+            paginate: { first: '<i class="fas fa-angle-double-left"></i>', last: '<i class="fas fa-angle-double-right"></i>', next: '<i class="fas fa-angle-right"></i>', previous: '<i class="fas fa-angle-left"></i>' }
+        },
+        dom: '<"row mb-3"<"col-md-6"l><"col-md-6"f>>rtip'
+    });
+
+    $('#studentPaymentsTable').DataTable({
+        pageLength: 10,
+        lengthMenu: [5, 10, 25],
+        order: [[0, 'desc']],
+        language: {
+            search: '<i class="fas fa-search me-1"></i>',
+            searchPlaceholder: 'Search payments...',
+            lengthMenu: 'Show _MENU_',
+            info: 'Showing _START_ to _END_ of _TOTAL_',
+            emptyTable: 'No payment history',
+            paginate: { first: '<i class="fas fa-angle-double-left"></i>', last: '<i class="fas fa-angle-double-right"></i>', next: '<i class="fas fa-angle-right"></i>', previous: '<i class="fas fa-angle-left"></i>' }
+        },
+        dom: '<"row mb-3"<"col-md-6"l><"col-md-6"f>>rtip'
+    });
+});
+</script>
 <?= $this->endSection() ?>

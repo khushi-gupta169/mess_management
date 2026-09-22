@@ -43,13 +43,10 @@
                     <i class="fas fa-list me-2 text-primary"></i>All Students
                 </h5>
             </div>
-            <div class="col-md-6">
-                <div class="input-group">
-                    <span class="input-group-text bg-light border-end-0">
-                        <i class="fas fa-search text-muted"></i>
-                    </span>
-                    <input type="text" id="searchInput" class="form-control border-start-0" placeholder="Search students...">
-                </div>
+            <div class="col-md-6 text-end">
+                <span class="badge bg-primary-subtle text-primary fs-6">
+                    <i class="fas fa-users me-1"></i><span id="studentCount"><?= count($students) ?></span> Total
+                </span>
             </div>
         </div>
     </div>
@@ -190,13 +187,20 @@ function confirmDelete(id, name) {
     deleteModal.show();
 }
 
-document.getElementById('searchInput').addEventListener('keyup', function() {
-    let searchValue = this.value.toLowerCase();
-    let tableRows = document.querySelectorAll('#studentsTable tbody tr');
-    
-    tableRows.forEach(function(row) {
-        let text = row.textContent.toLowerCase();
-        row.style.display = text.includes(searchValue) ? '' : 'none';
+document.addEventListener('DOMContentLoaded', function() {
+    var table = $('#studentsTable').DataTable({
+        pageLength: 10,
+        lengthMenu: [5, 10, 25, 50, 100],
+        order: [[0, 'asc']],
+        language: {
+            search: '<i class="fas fa-search me-1"></i>',
+            searchPlaceholder: 'Search students...',
+            lengthMenu: 'Show _MENU_ entries',
+            info: 'Showing _START_ to _END_ of _TOTAL_ students',
+            emptyTable: 'No students found',
+            paginate: { first: '<i class="fas fa-angle-double-left"></i>', last: '<i class="fas fa-angle-double-right"></i>', next: '<i class="fas fa-angle-right"></i>', previous: '<i class="fas fa-angle-left"></i>' }
+        },
+        dom: '<"row mb-3"<"col-md-6"l><"col-md-6"f>>rtip'
     });
 });
 </script>

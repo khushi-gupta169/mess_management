@@ -31,8 +31,9 @@
 <?php endif; ?>
 
 <?php if (!empty($menus)): ?>
+    <div id="menusContainer">
     <?php foreach ($menus as $menu): ?>
-    <div class="card border-0 shadow-sm mb-4">
+    <div class="card border-0 shadow-sm mb-4 menu-card">
         <div class="card-header bg-white py-3">
             <div class="row align-items-center">
                 <div class="col-md-6">
@@ -102,6 +103,8 @@
         </div>
     </div>
     <?php endforeach; ?>
+    </div>
+    <nav aria-label="Menus pagination" id="menusPagination" class="mt-3"></nav>
 <?php else: ?>
     <div class="card border-0 shadow-sm">
         <div class="card-body text-center py-5 text-muted">
@@ -148,6 +151,42 @@ function confirmDelete(id, date) {
     document.getElementById('deleteConfirmBtn').href = '<?= base_url('admin/menus/delete/') ?>' + id;
     new bootstrap.Modal(document.getElementById('deleteModal')).show();
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    var cards = document.querySelectorAll('#menusContainer .menu-card');
+    var perPage = 5;
+    var currentPage = 1;
+    var totalPages = Math.ceil(cards.length / perPage);
+
+    function showPage(page) {
+        currentPage = page;
+        var start = (page - 1) * perPage;
+        var end = start + perPage;
+        cards.forEach(function(card, i) {
+            card.style.display = (i >= start && i < end) ? '' : 'none';
+        });
+        renderPagination();
+    }
+
+    function renderPagination() {
+        if (totalPages <= 1) { document.getElementById('menusPagination').innerHTML = ''; return; }
+        var html = '<ul class="pagination justify-content-center mb-0">';
+        html += '<li class="page-item ' + (currentPage === 1 ? 'disabled' : '') + '"><a class="page-link" href="#" onclick="goToMenuPage(' + (currentPage - 1) + ');return false;"><i class="fas fa-angle-left"></i></a></li>';
+        for (var i = 1; i <= totalPages; i++) {
+            html += '<li class="page-item ' + (i === currentPage ? 'active' : '') + '"><a class="page-link" href="#" onclick="goToMenuPage(' + i + ');return false;">' + i + '</a></li>';
+        }
+        html += '<li class="page-item ' + (currentPage === totalPages ? 'disabled' : '') + '"><a class="page-link" href="#" onclick="goToMenuPage(' + (currentPage + 1) + ');return false;"><i class="fas fa-angle-right"></i></a></li>';
+        html += '</ul>';
+        document.getElementById('menusPagination').innerHTML = html;
+    }
+
+    window.goToMenuPage = function(page) {
+        if (page < 1 || page > totalPages) return;
+        showPage(page);
+    };
+
+    if (cards.length > 0) showPage(1);
+});
 </script>
 
 <?= $this->endSection() ?>
