@@ -197,7 +197,8 @@ function showRejectModal(id, studentName) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    var kycTable = $('#kycTable').DataTable({
+    if (!$.fn.DataTable.isDataTable('#kycTable')) {
+        var kycTable = $('#kycTable').DataTable({
         pageLength: 10,
         lengthMenu: [5, 10, 25, 50, 100],
         order: [[0, 'asc']],
@@ -212,6 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
         dom: '<"row mb-3"<"col-md-6"l><"col-md-6"f>>rtip',
         columnDefs: [{ targets: [6], orderable: false }]
     });
+    }
 });
 </script>
 

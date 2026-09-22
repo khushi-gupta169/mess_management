@@ -137,20 +137,22 @@ function confirmDelete(id, title) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    $('#holidaysTable').DataTable({
-        pageLength: 10,
-        lengthMenu: [5, 10, 25, 50, 100],
-        order: [[1, 'desc']],
-        language: {
-            search: '<i class="fas fa-search me-1"></i>',
-            searchPlaceholder: 'Search holidays...',
-            lengthMenu: 'Show _MENU_ entries',
-            info: 'Showing _START_ to _END_ of _TOTAL_ holidays',
-            emptyTable: 'No holidays found',
-            paginate: { first: '<i class="fas fa-angle-double-left"></i>', last: '<i class="fas fa-angle-double-right"></i>', next: '<i class="fas fa-angle-right"></i>', previous: '<i class="fas fa-angle-left"></i>' }
-        },
-        dom: '<"row mb-3"<"col-md-6"l><"col-md-6"f>>rtip'
-    });
+    if (!$.fn.DataTable.isDataTable('#holidaysTable')) {
+        $('#holidaysTable').DataTable({
+            pageLength: 10,
+            lengthMenu: [5, 10, 25, 50, 100],
+            order: [[1, 'desc']],
+            language: {
+                search: '<i class="fas fa-search me-1"></i>',
+                searchPlaceholder: 'Search holidays...',
+                lengthMenu: 'Show _MENU_ entries',
+                info: 'Showing _START_ to _END_ of _TOTAL_ holidays',
+                emptyTable: 'No holidays found',
+                paginate: { first: '<i class="fas fa-angle-double-left"></i>', last: '<i class="fas fa-angle-double-right"></i>', next: '<i class="fas fa-angle-right"></i>', previous: '<i class="fas fa-angle-left"></i>' }
+            },
+            dom: '<"row mb-3"<"col-md-6"l><"col-md-6"f>>rtip'
+        });
+    }
 });
 </script>
 

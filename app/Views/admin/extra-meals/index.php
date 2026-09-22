@@ -158,20 +158,22 @@ function confirmReject(id, name) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    $('#extraMealsTable').DataTable({
-        pageLength: 10,
-        lengthMenu: [5, 10, 25, 50, 100],
-        order: [[0, 'asc']],
-        language: {
-            search: '<i class="fas fa-search me-1"></i>',
-            searchPlaceholder: 'Search requests...',
-            lengthMenu: 'Show _MENU_ entries',
-            info: 'Showing _START_ to _END_ of _TOTAL_ requests',
-            emptyTable: 'No extra meal requests found',
-            paginate: { first: '<i class="fas fa-angle-double-left"></i>', last: '<i class="fas fa-angle-double-right"></i>', next: '<i class="fas fa-angle-right"></i>', previous: '<i class="fas fa-angle-left"></i>' }
-        },
-        dom: '<"row mb-3"<"col-md-6"l><"col-md-6"f>>rtip'
-    });
+    if (!$.fn.DataTable.isDataTable('#extraMealsTable')) {
+        $('#extraMealsTable').DataTable({
+            pageLength: 10,
+            lengthMenu: [5, 10, 25, 50, 100],
+            order: [[0, 'asc']],
+            language: {
+                search: '<i class="fas fa-search me-1"></i>',
+                searchPlaceholder: 'Search requests...',
+                lengthMenu: 'Show _MENU_ entries',
+                info: 'Showing _START_ to _END_ of _TOTAL_ requests',
+                emptyTable: 'No extra meal requests found',
+                paginate: { first: '<i class="fas fa-angle-double-left"></i>', last: '<i class="fas fa-angle-double-right"></i>', next: '<i class="fas fa-angle-right"></i>', previous: '<i class="fas fa-angle-left"></i>' }
+            },
+            dom: '<"row mb-3"<"col-md-6"l><"col-md-6"f>>rtip'
+        });
+    }
 });
 </script>
 

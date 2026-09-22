@@ -83,35 +83,39 @@
 </div>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    $('#studentFeeTable').DataTable({
-        pageLength: 10,
-        lengthMenu: [5, 10, 25],
-        order: [[0, 'desc']],
-        language: {
-            search: '<i class="fas fa-search me-1"></i>',
-            searchPlaceholder: 'Search fees...',
-            lengthMenu: 'Show _MENU_',
-            info: 'Showing _START_ to _END_ of _TOTAL_',
-            emptyTable: 'No fee records found',
-            paginate: { first: '<i class="fas fa-angle-double-left"></i>', last: '<i class="fas fa-angle-double-right"></i>', next: '<i class="fas fa-angle-right"></i>', previous: '<i class="fas fa-angle-left"></i>' }
-        },
-        dom: '<"row mb-3"<"col-md-6"l><"col-md-6"f>>rtip'
-    });
+    if (!$.fn.DataTable.isDataTable('#studentFeeTable')) {
+        $('#studentFeeTable').DataTable({
+            pageLength: 10,
+            lengthMenu: [5, 10, 25],
+            order: [[0, 'desc']],
+            language: {
+                search: '<i class="fas fa-search me-1"></i>',
+                searchPlaceholder: 'Search fees...',
+                lengthMenu: 'Show _MENU_',
+                info: 'Showing _START_ to _END_ of _TOTAL_',
+                emptyTable: 'No fee records found',
+                paginate: { first: '<i class="fas fa-angle-double-left"></i>', last: '<i class="fas fa-angle-double-right"></i>', next: '<i class="fas fa-angle-right"></i>', previous: '<i class="fas fa-angle-left"></i>' }
+            },
+            dom: '<"row mb-3"<"col-md-6"l><"col-md-6"f>>rtip'
+        });
+    }
 
-    $('#studentPaymentsTable').DataTable({
-        pageLength: 10,
-        lengthMenu: [5, 10, 25],
-        order: [[0, 'desc']],
-        language: {
-            search: '<i class="fas fa-search me-1"></i>',
-            searchPlaceholder: 'Search payments...',
-            lengthMenu: 'Show _MENU_',
-            info: 'Showing _START_ to _END_ of _TOTAL_',
-            emptyTable: 'No payment history',
-            paginate: { first: '<i class="fas fa-angle-double-left"></i>', last: '<i class="fas fa-angle-double-right"></i>', next: '<i class="fas fa-angle-right"></i>', previous: '<i class="fas fa-angle-left"></i>' }
-        },
-        dom: '<"row mb-3"<"col-md-6"l><"col-md-6"f>>rtip'
-    });
+    if (!$.fn.DataTable.isDataTable('#studentPaymentsTable')) {
+        $('#studentPaymentsTable').DataTable({
+            pageLength: 10,
+            lengthMenu: [5, 10, 25],
+            order: [[0, 'desc']],
+            language: {
+                search: '<i class="fas fa-search me-1"></i>',
+                searchPlaceholder: 'Search payments...',
+                lengthMenu: 'Show _MENU_',
+                info: 'Showing _START_ to _END_ of _TOTAL_',
+                emptyTable: 'No payment history',
+                paginate: { first: '<i class="fas fa-angle-double-left"></i>', last: '<i class="fas fa-angle-double-right"></i>', next: '<i class="fas fa-angle-right"></i>', previous: '<i class="fas fa-angle-left"></i>' }
+            },
+            dom: '<"row mb-3"<"col-md-6"l><"col-md-6"f>>rtip'
+        });
+    }
 });
 </script>
 <?= $this->endSection() ?>

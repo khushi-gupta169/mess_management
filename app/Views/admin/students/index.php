@@ -188,7 +188,8 @@ function confirmDelete(id, name) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    var table = $('#studentsTable').DataTable({
+    if (!$.fn.DataTable.isDataTable('#studentsTable')) {
+        $('#studentsTable').DataTable({
         pageLength: 10,
         lengthMenu: [5, 10, 25, 50, 100],
         order: [[0, 'asc']],
@@ -202,6 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         dom: '<"row mb-3"<"col-md-6"l><"col-md-6"f>>rtip'
     });
+    }
 });
 </script>
 

@@ -20,8 +20,8 @@
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Custom JS -->
-    <script src="<?= base_url('assets/js/admin.js') ?>" defer></script>
+    <!-- Custom JS (cache-bust on deploy) -->
+    <script src="<?= base_url('assets/js/admin.js') ?>?v=<?= filemtime(ROOTPATH . 'public/assets/js/admin.js') ?>" defer></script>
 </head>
 <body>
     <div class="wrapper">
